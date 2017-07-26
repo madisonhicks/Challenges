@@ -18,6 +18,7 @@ a description of it here: https://docs.python.org/3/library/typing.html
 """
 
 # # # Place your imports below this line # # #
+import time
 
 from datetime import date, datetime, timedelta
 from sys import argv
@@ -48,7 +49,7 @@ def get_timestamp() -> int:
         You may use either the time or the datetime module
         to accomplish this task
     """
-
+    return int(time.time())
 
 # Two: convert a datetime object into a Unix timestamp
 #   Given a datetime object, return the corresponding Unix timestamp
@@ -56,6 +57,7 @@ def get_timestamp() -> int:
 def timestamp_from_datetime(dt: datetime) -> int:
     """Return the timestamp corresponding to the given datetime"""
 
+    return int(dt.timestamp())
 
 # Three: dates to strings
 #   Given a date or datetime object, output a string representing
@@ -72,6 +74,9 @@ def date_to_string(date_or_datetime: Union[date, datetime]) -> str:
     :param date_or_datetime: a date or datetime object to convert
     """
 
+    date_string = date_or_datetime.isoformat()
+
+    return date_string[:10]
 
 # Four: strings to dates
 #   Given a date string in ISO format ("YYYY-mm-dd"), convert to a
@@ -80,6 +85,8 @@ def date_to_string(date_or_datetime: Union[date, datetime]) -> str:
 def string_to_date(date_string: str) -> date:
     """Return a date object corresponding to the passed string"""
 
+    date_input = datetime.strptime(date_string, "%Y-%m-%d")
+    return date_input.date()
 
 # Five: comparisons to now
 #   Given a datetime object, return True if it is in the future, False
@@ -88,6 +95,10 @@ def string_to_date(date_string: str) -> date:
 def is_future(dt: datetime) -> bool:
     """Return whether the passed datetime is in the future"""
 
+    if dt > datetime.now():
+        return True
+    else:
+        return False
 
 # Six: adding time
 #   Given a number of days, return a datetime object corresponding to
@@ -105,7 +116,7 @@ def days_from_today(days: int) -> date:
 
     :param days: the number of days from now to return
     """
-
+    return date.today() + timedelta(days=days)
 
 #
 #
