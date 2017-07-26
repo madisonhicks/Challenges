@@ -2,7 +2,6 @@
 Simple setup for challenges
 """
 
-from os.path import dirname, join, realpath
 from setuptools import setup, find_packages
 
 

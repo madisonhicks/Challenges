@@ -23,7 +23,7 @@ settings -> project: Challenges -> project interpreter
 
 * run `npm install` from the root directory
 * if third party packages are added to the `package.json`
-requirements file, you acn update your environment by running
+requirements file, you can update your environment by running
 `npm install` again
 
 ## Layout
@@ -39,8 +39,11 @@ based on the file extension.
 ### Python
 
 * Ensure you have activated your virtual environment `source venv/bin/activate`
-* Run `python <your_script_path>`
+* Run `python <your_script_name>`, which will automatically test your code
+* If you want to test just one method, run
+`python <your_script_name> <your_method_name>`
 
-### JavaScript
+
+### Node
 
 * Run `node <your_script_path>`
