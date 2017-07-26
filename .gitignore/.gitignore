@@ -162,4 +162,6 @@ typings/
 # dotenv environment variables file
 .env
 
+# IntelliJ/PyCharm files
 
+.idea
