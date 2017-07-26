@@ -209,7 +209,13 @@ def test_days_from_today(days):
 
 
 if __name__ == '__main__':
-    args = ['-x', __file__]
+    args = ['-x', __file__]  # base arguments
+
     if len(argv) == 2:
-        args.extend(['-k', 'test_{}'.format(argv[1])])
+        # We got a particular function name to test, so we use pytest's
+        # -k argument to find a test called test_<function_name>.
+        # Note the use of a Python 3.6+ ONLY f-string
+        # (see # https://www.python.org/dev/peps/pep-0498/)
+        args.extend(['-k', f'test_{argv[1]}'])
+
     pytest.main(args)
