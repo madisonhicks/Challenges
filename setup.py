@@ -15,6 +15,7 @@ LONG_DESC = SHORT_DESC
 KEYWORDS = []
 
 PACKAGE_DEPENDENCIES = [
+    'ipdb',
     'pytest',
 ]
 SETUP_DEPENDENCIES = []
