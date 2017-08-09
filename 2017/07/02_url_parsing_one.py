@@ -74,6 +74,43 @@ def url_tuple(url: str) -> Tuple[str, str, str, str, str]:
 
     """
 
+    final_list = []
+
+    if url:
+        protocol_split = url.split('://')
+        protocol = protocol_split[0]
+        working_url = protocol_split[1]
+    else:
+        return '', '', '', '', ''
+
+    if 'q' in url:
+        query_split = working_url.split('q')
+        query = query_split[1]
+        working_url = query_split[0]
+    else:
+        query = ''
+
+    if '/' in working_url:
+        path_split = working_url.split('/')
+        path = '/' + path_split[1]
+        contains_host = path_split[0]
+    else:
+        path = ''
+        contains_host = working_url
+
+    if ':' in contains_host:
+        port_split = contains_host.split(':')
+        host = port_split[0]
+        port = port_split[1]
+    else:
+        host = contains_host
+        port = ''
+
+    final_list.extend([protocol, host, port, path, query])
+    return tuple(final_list)
+
+
+
 
 @pytest.mark.parametrize('url, exp', [
     ('https://www.google.com',
@@ -99,7 +136,7 @@ def test_url_tuple(url, exp):
 
 
 if __name__ == '__main__':
-    args = ['-x', __file__]  # base arguments
+    args = ['-x', __file__, '-s']  # base arguments
 
     if len(argv) == 2:
         # We got a particular function name to test, so we use pytest's
