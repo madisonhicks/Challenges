@@ -83,8 +83,8 @@ def url_tuple(url: str) -> Tuple[str, str, str, str, str]:
     else:
         return '', '', '', '', ''
 
-    if 'q' in url:
-        query_split = working_url.split('q')
+    if '?' in url:
+        query_split = working_url.split('?')
         query = query_split[1]
         working_url = query_split[0]
     else:
