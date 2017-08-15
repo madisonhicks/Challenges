@@ -28,6 +28,8 @@ a description of it here: https://docs.python.org/3/library/typing.html
 """
 
 # # # Place your imports below this line # # #
+import re
+
 from sys import argv
 from typing import Tuple
 
@@ -202,12 +204,23 @@ def url_tuple_regex(url: str) -> Tuple[str, str, str, str, str]:
         compiling the expression in each call to ``match()``.
 
     """
-    import re
-
     regex = re.compile(r'^(https?)://([^/:\?]+):?(\w*)(/?\w*)\??(\S*)')
     match = regex.match(url)
 
     return match.groups()
+
+
+def url_tuple_urllib(url: str) -> Tuple[str, str, str, str, str]:
+    """Use the urllib library to parse a url
+
+    https://docs.python.org/3/library/urllib.parse.html#module-urllib.parse
+
+    Use the urllib.parse module to parse the given URLs.
+    Return should be in the same format as for the above two
+    functions, so you may need to ignore/not include some
+    of the sections returned by urllib.
+    """
+
 
 
 #
@@ -251,6 +264,16 @@ def test_url_tuple_regex(url, exp):
     :param exp: the expected split url
     """
     assert url_tuple_regex(url) == exp
+
+
+@pytest.mark.parametrize('url, exp', TEST_URLS_AND_EXP_RESULTS)
+def test_url_tuple_urllib(url, exp):
+    """Test the url_tuple_urllib function
+
+    :param url: the url to test
+    :param exp: the expected split url
+    """
+    assert url_tuple_urllib(url) == exp
 
 
 if __name__ == '__main__':
