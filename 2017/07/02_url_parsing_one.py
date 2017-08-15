@@ -113,6 +113,8 @@ def url_tuple(url: str) -> Tuple[str, str, str, str, str]:
 def url_tuple_regex(url: str) -> Tuple[str, str, str, str, str]:
     """Split a URL into five parts
 
+    https://regexone.com
+
     The parts should be the same as the method above, and the
     output should be the same as for the method above, but
     this time, use a regular expression to parse the URL.
@@ -200,6 +202,12 @@ def url_tuple_regex(url: str) -> Tuple[str, str, str, str, str]:
         compiling the expression in each call to ``match()``.
 
     """
+    import re
+
+    regex = re.compile(r'^(https?)://([^/:\?]+):?(\w*)(/?\w*)\??(\S*)')
+    match = regex.match(url)
+
+    return match.groups()
 
 
 #
@@ -242,7 +250,7 @@ def test_url_tuple_regex(url, exp):
     :param url: the url to test
     :param exp: the expected split url
     """
-    assert url_tuple(url) == exp
+    assert url_tuple_regex(url) == exp
 
 
 if __name__ == '__main__':
