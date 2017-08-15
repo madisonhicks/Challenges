@@ -110,24 +110,134 @@ def url_tuple(url: str) -> Tuple[str, str, str, str, str]:
     return tuple(final_list)
 
 
+def url_tuple_regex(url: str) -> Tuple[str, str, str, str, str]:
+    """Split a URL into five parts
+
+    The parts should be the same as the method above, and the
+    output should be the same as for the method above, but
+    this time, use a regular expression to parse the URL.
+
+    Hints:
+
+    * Make regular reference to https://docs.python.org/3/library/re.html
+    * You will only need one regular expression
+    * Regular expression groups are created with parentheses
+    * Regular expression groups can be marked as optional!
+    * Regular expression groups can be referenced by number, but they
+      can also be named and referenced by name
+    * You can mark an entire regular expression group as occurring
+      0 or any number of times (*), one or any number of times (+),
+      or 0 or 1  time (?)
+    * Parentheses denote groups. Square brackets denote character sets.
+      Square brackets may be part of a parentheses-denoted group.
+    * Square brackets are "greedy" by default, matching as many
+      characters in the search string as match the character set.
+    * You should consider installing the "regex tester" plugin for
+      PyCharm. It's very helpful for developing regular expressions
+
+    Tips:
+
+    * This will almost certainly feel overwhelming at first. Regular
+      expressions are extremely powerful, and like most things that
+      are such, they are also rather complicated. But keep at it,
+      use the regex tester, and you'll be fine!
+    * You can probably find a StackOverflow question that will
+      literally solve this challenge for you by giving you an
+      appropriate regular expression. Try to avoid using that
+      unless you have exhausted all your patience.
+    * The difference between "find", "match", and "fullmatch" is that
+      with "find", the regex just has to be anywhere in the
+      string, with "match" it must match at the start of the string,
+      and with "fullmatch", it must match the entirety of the string
+    * Given that you don't just want to find a pattern in a string,
+      but to match an entire string, you'll want to use "match" or
+      "fullmatch"
+    * A nice thing about the regex library in Python is that you can
+      pre-compile your regular expressions, with
+      ``re.compile(r'regex')`` (the "r" before the string means
+      "raw", so no character escaping, like with slashes, is performed.
+      A pre-compiled regex can be assigned to a variable and used
+      a bunch of times with no performance overhead. As an example,
+      consider the following two ways of solving the same problem,
+      parsing a phone number to get its parts::
+
+        import re
+
+        string_one = '228-555-1234'
+        string_two = '858-556-7890'
+
+        # First approach, using re.compile()
+
+        regex = re.compile(r'(\d{3})-(\d{3})-(\d{4})')
+
+        match_one = regex.match(string_one)
+        match_two = regex.match(string_two)
+
+        assert match_one is not None
+        assert match_two is not None
+
+        assert match_one.groups() == ('228', '555', '1234')
+        assert match_two.groups() == ('858', '556', '7890')
+
+        assert match_one.group(1) == '228'
+
+        # Second approach, no pre-compilation
+
+        match_one = regex.match(r'(\d{3})-(\d{3})-(\d{4})', string_one)
+        match_two = regex.match(r'(\d{3})-(\d{3})-(\d{4})', string_two)
+
+        assert match_one is not None
+        assert match_two is not None
+
+        assert match_one.groups() == ('228', '555', '1234')
+        assert match_two.groups() == ('858', '556', '7890')
+
+        assert match_one.group(1) == '228'
+
+      * It should be clear that both approaches yield the same results,
+        but the first, in addition to being less typing, only requires
+        compiling the regular expression once, while the second requires
+        compiling the expression in each call to ``match()``.
+
+    """
 
 
-@pytest.mark.parametrize('url, exp', [
+#
+#
+# Tests
+#
+#
+
+
+TEST_URLS_AND_EXP_RESULTS = (
     ('https://www.google.com',
-        ('https', 'www.google.com', '', '', '')),
+     ('https', 'www.google.com', '', '', '')),
     ('http://www.google.com:10',
-        ('http', 'www.google.com', '10', '', '')),
+     ('http', 'www.google.com', '10', '', '')),
     ('http://www.foo.org/in',
-        ('http', 'www.foo.org', '', '/in', '')),
+     ('http', 'www.foo.org', '', '/in', '')),
     ('http://www.foo.org/in?y=n',
-        ('http', 'www.foo.org', '', '/in', 'y=n')),
+     ('http', 'www.foo.org', '', '/in', 'y=n')),
     ('http://localhost:8080/',
-        ('http', 'localhost', '8080', '/', '')),
+     ('http', 'localhost', '8080', '/', '')),
     ('http://192.168.1.2:555/admin',
-        ('http', '192.168.1.2', '555', '/admin', '')),
-])
+     ('http', '192.168.1.2', '555', '/admin', '')),
+)
+
+
+@pytest.mark.parametrize('url, exp', TEST_URLS_AND_EXP_RESULTS)
 def test_url_tuple(url, exp):
     """Test the url_tuple function
+
+    :param url: the url to test
+    :param exp: the expected split url
+    """
+    assert url_tuple(url) == exp
+
+
+@pytest.mark.parametrize('url, exp', TEST_URLS_AND_EXP_RESULTS)
+def test_url_tuple_regex(url, exp):
+    """Test the url_tuple_regex function
 
     :param url: the url to test
     :param exp: the expected split url
