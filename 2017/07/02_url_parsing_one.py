@@ -32,6 +32,7 @@ import re
 
 from sys import argv
 from typing import Tuple
+from urllib.parse import urlparse
 
 import pytest
 
@@ -221,7 +222,17 @@ def url_tuple_urllib(url: str) -> Tuple[str, str, str, str, str]:
     of the sections returned by urllib.
     """
 
+    parsed = urlparse(url)
+    contains_host = parsed.netloc.split(':')
 
+    if len(contains_host) > 1:
+        host = contains_host[0]
+        port = contains_host[1]
+    else:
+        host = contains_host[0]
+        port = ''
+
+    return parsed.scheme, host, port, parsed.path, parsed.query
 
 #
 #
