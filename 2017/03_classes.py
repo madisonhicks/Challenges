@@ -244,7 +244,7 @@ def custom_second_level_spells(new_spell: str) -> SecondLevelSpells:
 
 #   On that instance "demons", "most_horrible" is now Mephistopheles,
 #   but on any new instances of the Demons class, and on the class
-#   itself,most_horrible will still be "beelzebub":
+#   itself, most_horrible will still be "beelzebub":
 
 #   print(demons.most_horrible)  # prints 'Mephistopheles'
 #   print(Demons.most_horrible)  # prints 'beelzebub'
@@ -252,10 +252,10 @@ def custom_second_level_spells(new_spell: str) -> SecondLevelSpells:
 #   print(new_demons.most_horrible)  # prints 'beelzebub'
 
 #   For this challenge, write a function that takes some object as
-#   its parameter and gives it a new parameter (or overwrites
-#   an existing parameter) called "called_by_me_at", whose value
-#   is a new datetime object representing the current time. The
-#   object should be returned once it is updated
+#   its parameter and gives it a new attribute (or overwrites
+#   an existing attribute) called "called_by_me_at", whose value
+#   is a new datetime instance representing the current time. The
+#   updated object should be returned.
 
 
 def add_called_by_me_at(obj: object) -> object:
@@ -267,8 +267,8 @@ def add_called_by_me_at(obj: object) -> object:
 #   they live within the class namespace, and how they are copied
 #   to the instance namespace (note this isn't exactly accurate
 #   but it is close enough for now). We also know how new attributes
-#   can be defined on an instance, that we call these instance
-#   attributes, and that these are only present in the instance's
+#   can be defined on an instance, that we call these "instance
+#   attributes", and that these are only present in the instance's
 #   namespace.
 
 #   One neat thing about classes is that you can define instance
@@ -375,7 +375,7 @@ def test_custom_second_level_spells(spell):
     type('NewClass', (object, ), {})(),
     type('NewClass', (object, ), {}),
 ])
-def test_called_by_me_at(obj):
+def test_add_called_by_me_at(obj):
     """Test the called_by_me_at function"""
     add_called_by_me_at(obj)
 
@@ -394,7 +394,7 @@ def _check_form(obj, expected_spells):
 
 
 if __name__ == '__main__':
-    args = ['-x', __file__]  # base arguments
+    args = ['-x', __file__, '-s', '-v']  # base arguments
 
     if len(argv) == 2:
         # We got a particular function name to test, so we use pytest's
