@@ -80,7 +80,8 @@ class FirstLevelSpells:
     This class defines first-level spells as attributes, and their
     incantations as those attributes' values.
     """
-
+    unlock = 'alohamora'
+    levitate = 'wingardium leviosa'
 
 # Two: post-definition assignment
 #   Classes are not necessarily static once they are defined. At any
@@ -110,7 +111,7 @@ class FirstLevelSpells:
 
 def add_first_level_spell() -> None:
     """Add a spell to the FirstLevelSpells class"""
-
+    FirstLevelSpells.fire = 'incendio'
 
 # Three: classes as instances
 #   One of, if not the primary, uses of classes is found in their
@@ -209,16 +210,23 @@ def add_first_level_spell() -> None:
 
 class SecondLevelSpells:
     """Second Level Spells"""
+    disarm = 'expelliarmus'
+    light = 'lumos'
+    dark = 'nox'
+    dance = 'tarantallegra'
 
 
 def custom_second_level_spells(new_spell: str) -> SecondLevelSpells:
-    """Return an instance of FirstLevelSpells with a custom spell"""
+    """Return an instance of SecondLevelSpells with a custom spell"""
+    second_level_instance = SecondLevelSpells()
+    second_level_instance.custom = new_spell
+    return second_level_instance
 
 
 # Four: overwriting at the instance level
 
 #   As you saw above in our example with Mephistopheles, you can
-#   overwrite class attributes after a class ahs been defined.
+#   overwrite class attributes after a class has been defined.
 #   You can also overwrite attributes at the instance level. However,
 #   unlike with class references, these do not affect the class
 #   itself or future instances. Again, back to the concept of a mold,
@@ -260,7 +268,8 @@ def custom_second_level_spells(new_spell: str) -> SecondLevelSpells:
 
 def add_called_by_me_at(obj: object) -> object:
     """Add a "called_by_me_at" parameter with the current datetime"""
-
+    obj.called_by_me_at = datetime.now()
+    return obj.called_by_me_at
 
 # Five: instance methods and "self"
 #   So, we now know all about how class attributes are defined, how
